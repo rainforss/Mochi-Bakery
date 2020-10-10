@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Tab, Tabs, Col, Row, Card, Badge, Button } from "react-bootstrap";
 
-const ProductTab = ({ categories,inSeasonProducts }) => {
+const ProductTab = ({ categories,inSeasonProducts,addItemToCart }) => {
   const copy = [...categories];
   const index = copy.findIndex(
     (category) => category.name === "Weekly Specials"
@@ -44,7 +44,7 @@ const ProductTab = ({ categories,inSeasonProducts }) => {
                 </Card.Text>
                 <div className="d-flex justify-content-between my-3">
                   <Button variant="info">The making</Button>
-                  <Button variant="outline-secondary">Order it</Button>
+                  <Button name={product.id} onClick={addItemToCart} variant="outline-secondary">Order it</Button>
                 </div>
               </Card.Body>
             </Card>

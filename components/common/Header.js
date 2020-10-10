@@ -10,7 +10,7 @@ const Header = () => {
       <Navbar
         className={
           "d-flex justify-content-around header position-absolute w-100 " +
-          (router.pathname === "/" ? "nav-main" : "nav-secondary")
+          (router.pathname === "/" ? "nav-main" : router.pathname==="/cart"?"nav-cart":"nav-secondary")
         }
         style={{ zIndex: 4 }}
       >

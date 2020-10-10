@@ -39,7 +39,7 @@ const HeroSection = () => {
           ))}
         </ReactIdSwiperCustom>
         <div className="hero-text d-flex flex-column justify-content-center align-items-center position-absolute">
-          <p className="hero-heading font-size-5">
+          <p className="hero-heading font-size-5 text-center">
             The sweetness you can never resist
           </p>
           <div className="my-4">

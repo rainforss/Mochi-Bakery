@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Container, Row, Col, Button, Badge } from "react-bootstrap";
 
-const WeeklySpecialSection = ({ weeklySpecials }) => {
+const WeeklySpecialSection = ({ weeklySpecials, addItemToCart }) => {
   return (
     <Container className="weekly-special">
       <h2 className="weekly-special-heading my-4">Weekly specials</h2>
@@ -29,7 +29,7 @@ const WeeklySpecialSection = ({ weeklySpecials }) => {
                 </Card.Text>
                 <div className="d-flex justify-content-between my-3">
                   <Button variant="info">The making</Button>
-                  <Button variant="outline-secondary">Order it</Button>
+                  <Button name={product.id} onClick={addItemToCart} variant="outline-secondary">Order it</Button>
                 </div>
               </Card.Body>
             </Card>

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import ShoppingCart from "../components/common/ShoppingCart";
 import Subscription from "../components/common/Subscription";
@@ -8,13 +9,15 @@ import SocialMedias from "../components/homepage/SocialMedias";
 import Layout from "../components/Layout";
 import commerce from "../lib/commerce";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const { data: categories } = await commerce.categories.list();
 
-  return { props: { categories } };
+  return { props: { categories} };
 };
 
-export default function Home({ categories }) {
+export default function Home({ categories}) {
+  const [cart,setCart]=useState({});
+
   return (
     <>
       <Layout>
@@ -35,7 +38,7 @@ export default function Home({ categories }) {
             <Subscription />
           </Col>
         </Row>
-        <ShoppingCart />
+        <ShoppingCart cart={cart}/>
       </Layout>
     </>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Layout from "../components/Layout";
 import commerce from "../lib/commerce";
@@ -12,12 +12,15 @@ export const getServerSideProps = async () => {
 
   const {data:allProducts}= await commerce.products.list();
 
+
   return { props: { allProducts, categories } };
 };
 
 const products = ({ allProducts, categories }) => {
   const weeklySpecials = allProducts.filter(product=>product.categories[0].slug==="weekly-specials")
   const inSeasonProducts = allProducts.filter(product=>product.categories[0].slug!=="weekly-specials")
+  const [cart,setCart]=useState({})
+
   return (
     <>
       <Layout>
@@ -26,7 +29,7 @@ const products = ({ allProducts, categories }) => {
         </Head>
         <WeeklySpecialSection weeklySpecials={weeklySpecials} />
         <ProductTab categories={categories} inSeasonProducts={inSeasonProducts}/>
-        <ShoppingCart />
+        <ShoppingCart cart={cart}/>
       </Layout>
     </>
   );
