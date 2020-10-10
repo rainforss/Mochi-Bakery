@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Layout from "../components/Layout";
 import commerce from "../lib/commerce";
-import WeeklySpecialSection from "../components/productsPage/weeklySpecialSection";
+import WeeklySpecialSection from "../components/productsPage/WeeklySpecialSection";
 import ProductTab from "../components/productsPage/ProductTab";
 import ShoppingCart from "../components/common/ShoppingCart";
 
