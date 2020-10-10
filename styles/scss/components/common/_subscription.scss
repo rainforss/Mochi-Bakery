@@ -1,0 +1,17 @@
+.sub-input {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
+.sub-button {
+  cursor: pointer;
+  border-radius: 0 !important;
+  border-right: none !important;
+  border-top: none !important;
+}

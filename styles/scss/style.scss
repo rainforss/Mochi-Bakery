@@ -1,0 +1,34 @@
+@import "./pages/homePage";
+@import "./pages/productsPage";
+
+@import "./components/common/header";
+@import "./components/common/footer";
+@import "./components/common/subscription";
+
+@import "./helpers/utilityClasses";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 1200px) {
+  body,
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 800px) {
+  body,
+  html {
+    font-size: 8px;
+  }
+}

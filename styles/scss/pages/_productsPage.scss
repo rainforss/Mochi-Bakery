@@ -1,0 +1,20 @@
+.weekly-special {
+  padding-top: 150px;
+  .weekly-special-heading {
+    &::first-letter {
+      font-size: 3rem;
+      color: lightpink;
+    }
+  }
+}
+
+.category-tab-heading {
+  margin: 100px 0 30px 0;
+  &::first-letter {
+    font-size: 3rem;
+    color: lightskyblue;
+  }
+}
+
+.product-card {
+}
