@@ -55,18 +55,23 @@
   background-color: white;
   position: fixed;
   z-index: 99;
-  top: 50px;
-  right: 50px;
-  width: 80px;
-  height: 80px;
+  top: 3.1rem;
+  right: 3.1rem;
+  width: 4.5rem;
+  height: 4.5rem;
   border: 1px solid lightpink;
   box-shadow: 0 0 10px rgba(255, 182, 193, 0.767);
   font-size: 1.8rem;
   color: lightpink;
+
   &:hover {
     border: 1px solid paleturquoise;
     box-shadow: 0 0 50px rgba(155, 240, 240, 0.767);
     transition: all 0.5s;
     color: paleturquoise;
+  }
+
+  @media (max-width: 1200px) {
+    top: 8rem;
   }
 }
