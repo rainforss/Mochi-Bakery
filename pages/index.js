@@ -1,6 +1,8 @@
 import Head from "next/head";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import useSWR from "swr";
 import ShoppingCart from "../components/common/ShoppingCart";
 import Subscription from "../components/common/Subscription";
 import CategoryShowcase from "../components/homepage/CategoryShowcase";
@@ -12,12 +14,10 @@ import commerce from "../lib/commerce";
 export const getServerSideProps = async () => {
   const { data: categories } = await commerce.categories.list();
 
-  return { props: { categories} };
+  return { props: { categories } };
 };
 
-export default function Home({ categories}) {
-  const [cart,setCart]=useState({});
-
+export default function Home({ categories }) {
   return (
     <>
       <Layout>
@@ -38,7 +38,7 @@ export default function Home({ categories}) {
             <Subscription />
           </Col>
         </Row>
-        <ShoppingCart cart={cart}/>
+        <ShoppingCart />
       </Layout>
     </>
   );
