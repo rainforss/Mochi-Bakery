@@ -1,7 +1,9 @@
 import React from "react";
 import { Card, Container, Row, Col, Button, Badge } from "react-bootstrap";
+import { useRouter } from "next/router";
 
 const WeeklySpecialSection = ({ weeklySpecials, addItemToCart }) => {
+  const router = useRouter();
   return (
     <Container className="weekly-special">
       <h2 className="weekly-special-heading my-4">Weekly specials</h2>
@@ -28,8 +30,22 @@ const WeeklySpecialSection = ({ weeklySpecials, addItemToCart }) => {
                   ></div>
                 </Card.Text>
                 <div className="d-flex justify-content-between my-3">
-                  <Button variant="info">The making</Button>
-                  <Button name={product.id} onClick={addItemToCart} variant="outline-secondary">Order it</Button>
+                  <Button
+                    variant="info"
+                    onClick={() =>
+                      router.push(`/products/${product.permalink}`)
+                    }
+                    name={product.id}
+                  >
+                    The making
+                  </Button>
+                  <Button
+                    name={product.id}
+                    onClick={addItemToCart}
+                    variant="outline-secondary"
+                  >
+                    Add to cart
+                  </Button>
                 </div>
               </Card.Body>
             </Card>

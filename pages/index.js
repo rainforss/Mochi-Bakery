@@ -1,8 +1,7 @@
 import Head from "next/head";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import useSWR from "swr";
+import Cookies from "js-cookie";
+import useCart from "../hooks/useCart";
 import ShoppingCart from "../components/common/ShoppingCart";
 import Subscription from "../components/common/Subscription";
 import CategoryShowcase from "../components/homepage/CategoryShowcase";
@@ -18,6 +17,14 @@ export const getServerSideProps = async () => {
 };
 
 export default function Home({ categories }) {
+  const currentCartId = Cookies.get("commercejs_cart_id");
+  const { cart, update } = useCart(currentCartId);
+
+  const emptyCart = async () => {
+    const updatedInfo = await commerce.cart.empty();
+    console.log(updatedInfo);
+    update({ ...updatedInfo.cart }, false);
+  };
   return (
     <>
       <Layout>
@@ -38,7 +45,7 @@ export default function Home({ categories }) {
             <Subscription />
           </Col>
         </Row>
-        <ShoppingCart />
+        <ShoppingCart cart={cart} emptyCart={emptyCart} />
       </Layout>
     </>
   );
