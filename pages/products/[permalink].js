@@ -6,8 +6,10 @@ import { Col, Container, Image, Row } from "react-bootstrap";
 import ShoppingCart from "../../components/common/ShoppingCart";
 import Cookies from "js-cookie";
 import useCart from "../../hooks/useCart";
+import useSWR from "swr";
 import ProductDetail from "../../components/individualProductPage/ProductDetail";
 import CustomerReviews from "../../components/individualProductPage/CustomerReviews";
+import SuggestedProducts from "../../components/individualProductPage/SuggestedProducts";
 
 export const getServerSideProps = async (context) => {
   const product = await commerce.products.retrieve(context.params.permalink, {
@@ -18,6 +20,21 @@ export const getServerSideProps = async (context) => {
 };
 
 const Product = ({ product }) => {
+  let similarProducts;
+  console.log(product.categories[0].slug);
+  const { data, error, mutate } = useSWR(
+    `https://api.chec.io/v1/products?category_slug=${product.categories[0].slug}`
+  );
+  console.log(data);
+  if (error) {
+    console.log(error.message);
+  }
+  if (!data) {
+    similarProducts = [];
+  } else {
+    similarProducts = data.data.filter((item) => item.id !== product.id);
+  }
+
   const currentCartId = Cookies.get("commercejs_cart_id");
   const { cart, update } = useCart(currentCartId);
   const addItemToCart = async (e) => {
@@ -39,15 +56,16 @@ const Product = ({ product }) => {
         </Head>
         <Container className="item-display-body">
           <Row>
-            <Col>
+            <Col sm={6} className="my-4">
               <Image src={product.media.source} width="100%" />
             </Col>
-            <Col>
-              <ProductDetail product={product} />
+            <Col sm={6} className="my-4">
+              <ProductDetail product={product} addItemToCart={addItemToCart} />
             </Col>
           </Row>
         </Container>
         <CustomerReviews />
+        <SuggestedProducts similarProducts={similarProducts} />
         <ShoppingCart cart={cart} />
       </Layout>
     </>

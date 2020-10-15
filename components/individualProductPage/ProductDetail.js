@@ -2,7 +2,7 @@ import React from "react";
 import { Accordion, Button, Card, Container } from "react-bootstrap";
 import { Plus, StarFill, StarHalf } from "react-bootstrap-icons";
 
-const ProductDetail = ({ product }) => {
+const ProductDetail = ({ product, addItemToCart }) => {
   return (
     <Container fluid>
       <div className="d-flex align-items-center">
@@ -13,13 +13,19 @@ const ProductDetail = ({ product }) => {
         <StarHalf className="mx-1" />
         <span className="mx-1">4.5/5</span>
       </div>
-      <h4>{product.name}</h4>
+      <h4 className="mt-3">{product.name}</h4>
       <div
         dangerouslySetInnerHTML={{
           __html: product.description,
         }}
       ></div>
-      <Button block variant="secondary" className="my-4">
+      <Button
+        block
+        variant="secondary"
+        className="my-4"
+        onClick={addItemToCart}
+        name={product.id}
+      >
         Add to cart
       </Button>
       <Accordion className="pt-2">

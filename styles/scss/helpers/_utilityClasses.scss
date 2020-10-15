@@ -23,6 +23,13 @@
   color: rgb(155, 240, 240);
 }
 
+.internal-link {
+  cursor: pointer;
+  &:hover {
+    color: lightpink;
+  }
+}
+
 .external-link {
   text-decoration: none;
   color: black;
