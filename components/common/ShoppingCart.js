@@ -15,7 +15,10 @@ const ShoppingCart = ({ cart }) => {
             />
             <Badge
               pill
-              className="position-absolute"
+              className={
+                "position-absolute" +
+                (cart ? (cart.total_items !== 0 ? "" : " d-none") : " d-none")
+              }
               style={{ top: 5, right: 5 }}
               variant="danger"
             >

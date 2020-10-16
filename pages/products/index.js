@@ -6,6 +6,7 @@ import commerce from "../../lib/commerce";
 import WeeklySpecialSection from "../../components/productsPage/WeeklySpecialSection";
 import ProductTab from "../../components/productsPage/ProductTab";
 import ShoppingCart from "../../components/common/ShoppingCart";
+import { toast } from "react-toastify";
 
 export const getServerSideProps = async () => {
   const { data: categories } = await commerce.categories.list();
@@ -24,6 +25,7 @@ const products = ({ allProducts, categories }) => {
   );
   const currentCartId = Cookies.get("commercejs_cart_id");
   const { cart, update } = useCart(currentCartId);
+  console.log(cart);
   const addItemToCart = async (e) => {
     const updatedInfo = await commerce.cart.add(e.target.name, 1);
     update(
@@ -34,6 +36,7 @@ const products = ({ allProducts, categories }) => {
       },
       false
     );
+    toast("🦄 The item has been added to your cart!");
   };
   const emptyCart = async () => {
     const updatedInfo = await commerce.cart.empty();

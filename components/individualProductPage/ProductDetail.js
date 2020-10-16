@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, Button, Card, Container } from "react-bootstrap";
+import { Accordion, Badge, Button, Card, Container } from "react-bootstrap";
 import { Plus, StarFill, StarHalf } from "react-bootstrap-icons";
 
 const ProductDetail = ({ product, addItemToCart }) => {
@@ -13,7 +13,13 @@ const ProductDetail = ({ product, addItemToCart }) => {
         <StarHalf className="mx-1" />
         <span className="mx-1">4.5/5</span>
       </div>
-      <h4 className="mt-3">{product.name}</h4>
+      <div className="my-3 d-flex justify-content-sm-between">
+        <h4 className="mb-0">{product.name}</h4>
+        <Badge variant="info" className="my-auto" style={{ fontSize: "1rem" }}>
+          {product.price.formatted_with_symbol}
+        </Badge>
+      </div>
+
       <div
         dangerouslySetInnerHTML={{
           __html: product.description,

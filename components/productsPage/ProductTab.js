@@ -21,7 +21,7 @@ const ProductTab = ({ categories, inSeasonProducts, addItemToCart }) => {
   const [key, setKey] = useState(copy[0].slug);
   const router = useRouter();
   return (
-    <Container>
+    <Container className="category-tab">
       <h2 className="category-tab-heading">All sweets and bakeries</h2>
       <Tabs
         id="controlled-tab-example"

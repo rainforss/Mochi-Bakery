@@ -10,6 +10,7 @@ import useSWR from "swr";
 import ProductDetail from "../../components/individualProductPage/ProductDetail";
 import CustomerReviews from "../../components/individualProductPage/CustomerReviews";
 import SuggestedProducts from "../../components/individualProductPage/SuggestedProducts";
+import { toast } from "react-toastify";
 
 export const getServerSideProps = async (context) => {
   const product = await commerce.products.retrieve(context.params.permalink, {
@@ -21,11 +22,9 @@ export const getServerSideProps = async (context) => {
 
 const Product = ({ product }) => {
   let similarProducts;
-  console.log(product.categories[0].slug);
   const { data, error, mutate } = useSWR(
     `https://api.chec.io/v1/products?category_slug=${product.categories[0].slug}`
   );
-  console.log(data);
   if (error) {
     console.log(error.message);
   }
@@ -47,6 +46,7 @@ const Product = ({ product }) => {
       },
       false
     );
+    toast("🦄 The item has been added to your cart!");
   };
   return (
     <>
@@ -65,7 +65,11 @@ const Product = ({ product }) => {
           </Row>
         </Container>
         <CustomerReviews />
-        <SuggestedProducts similarProducts={similarProducts} />
+        <SuggestedProducts
+          similarProducts={similarProducts}
+          showHeading={true}
+          shown={true}
+        />
         <ShoppingCart cart={cart} />
       </Layout>
     </>

@@ -1,9 +1,25 @@
+.shop-cart-body {
+  min-height: 100vh;
+}
+
 .cart-item-list {
-  padding-top: 9.5rem;
+  padding-top: 8.5rem;
+  padding-bottom: 5rem;
+}
+
+.image-section {
+  justify-content: flex-start;
+  @media (max-width: 800px) {
+    justify-content: center;
+  }
 }
 
 .checkout-image {
   object-fit: fill;
-  width: 200px;
-  height: 150px !important;
+  max-width: 80% !important;
+  // max-height: 200px !important;
+}
+
+.cart-control {
+  padding-bottom: 14rem;
 }

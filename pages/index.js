@@ -20,11 +20,6 @@ export default function Home({ categories }) {
   const currentCartId = Cookies.get("commercejs_cart_id");
   const { cart, update } = useCart(currentCartId);
 
-  const emptyCart = async () => {
-    const updatedInfo = await commerce.cart.empty();
-    console.log(updatedInfo);
-    update({ ...updatedInfo.cart }, false);
-  };
   return (
     <>
       <Layout>
@@ -45,7 +40,7 @@ export default function Home({ categories }) {
             <Subscription />
           </Col>
         </Row>
-        <ShoppingCart cart={cart} emptyCart={emptyCart} />
+        <ShoppingCart cart={cart} />
       </Layout>
     </>
   );
