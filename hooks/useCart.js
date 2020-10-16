@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import Cookies from "js-cookie";
 
 const useCart = (cartId) => {
   let cart;
@@ -16,6 +17,7 @@ const useCart = (cartId) => {
     if (error) return error.message;
     if (!data) return "Loading";
     cart = { ...data };
+    Cookies.set("commercejs_cart_id", cart.id);
   }
   return { cart: cart, update };
 };
