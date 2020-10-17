@@ -26,10 +26,12 @@ const WeeklySpecialSection = ({ weeklySpecials, addItemToCart }) => {
 
                 <Card.Text className="py-3">
                   <div
-                    dangerouslySetInnerHTML={{ __html: product.description }}
+                    dangerouslySetInnerHTML={{
+                      __html: `${product.description}`,
+                    }}
                   ></div>
                 </Card.Text>
-                <div className="gap"></div>
+                <div className="row my-3"></div>
                 <Row className="my-3">
                   <Col>
                     <Button
