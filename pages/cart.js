@@ -9,6 +9,7 @@ import useSWR from "swr";
 import { toast } from "react-toastify";
 import CartControl from "../components/cartPage/CartControl";
 import SuggestedProducts from "../components/individualProductPage/SuggestedProducts";
+import PriceSection from "../components/cartPage/PriceSection";
 
 export const getServerSideProps = async ({ req, res }) => {
   const cookies = new serverCookies(req, res);
@@ -83,6 +84,8 @@ const cart = ({ initialCart, recommendedProducts }) => {
     mutate({ ...updatedInfo.cart }, false);
     toast.dark("🦄 All items has been removed from your cart!");
   };
+
+  console.log(cart);
   return (
     <Layout>
       <Head>
@@ -100,6 +103,7 @@ const cart = ({ initialCart, recommendedProducts }) => {
         showHeading={false}
         shown={cart.total_items === 0}
       />
+      <PriceSection cart={cart} />
       <CartControl emptyCart={emptyCart} shown={cart.total_items !== 0} />
     </Layout>
   );

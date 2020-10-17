@@ -10,7 +10,7 @@ import SocialMedias from "../components/homepage/SocialMedias";
 import Layout from "../components/Layout";
 import commerce from "../lib/commerce";
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const { data: categories } = await commerce.categories.list();
 
   return { props: { categories } };
@@ -29,16 +29,16 @@ export default function Home({ categories }) {
         </Head>
 
         <HeroSection />
-        <Row className="w-75 mx-auto">
-          <Col>
+        <Row className="mx-auto site-map">
+          <Col xs={6} md={6}>
             <CategoryShowcase categories={categories} />
           </Col>
-          <Col>
+          <Col xs={6} md={6}>
             <SocialMedias />
           </Col>
-          <Col>
+          {/* <Col md={12}>
             <Subscription />
-          </Col>
+          </Col> */}
         </Row>
         <ShoppingCart cart={cart} />
       </Layout>
