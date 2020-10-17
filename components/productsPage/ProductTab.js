@@ -35,7 +35,7 @@ const ProductTab = ({ categories, inSeasonProducts, addItemToCart }) => {
                 if (product.categories[0].slug === option.slug) {
                   return (
                     <Col sm={6} key={product.id} className="px-4">
-                      <Card className="border-bottom-turquoise">
+                      <Card className="border-bottom-turquoise mb-5">
                         <Card.Img src={product.media.source} />
                         <Card.Body>
                           <Row>
@@ -59,23 +59,27 @@ const ProductTab = ({ categories, inSeasonProducts, addItemToCart }) => {
                               }}
                             ></div>
                           </Card.Text>
-                          <div className="d-flex justify-content-between my-3">
-                            <Button
-                              onClick={() =>
-                                router.push(`/products/${product.permalink}`)
-                              }
-                              variant="info"
-                            >
-                              The making
-                            </Button>
-                            <Button
-                              name={product.id}
-                              onClick={addItemToCart}
-                              variant="outline-secondary"
-                            >
-                              Add to cart
-                            </Button>
-                          </div>
+                          <Row className="my-3">
+                            <Col>
+                              <Button
+                                onClick={() =>
+                                  router.push(`/products/${product.permalink}`)
+                                }
+                                variant="info"
+                              >
+                                The making
+                              </Button>
+                            </Col>
+                            <Col className="text-right">
+                              <Button
+                                name={product.id}
+                                onClick={addItemToCart}
+                                variant="outline-secondary"
+                              >
+                                Add to cart
+                              </Button>
+                            </Col>
+                          </Row>
                         </Card.Body>
                       </Card>
                     </Col>

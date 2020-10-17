@@ -1,5 +1,5 @@
 import "../styles/scss/style.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "bootswatch/dist/minty/bootstrap.min.css";
 import "swiper/swiper.scss";
 import { SWRConfig } from "swr";
 import axios from "axios";
