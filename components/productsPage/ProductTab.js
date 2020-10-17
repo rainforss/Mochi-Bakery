@@ -59,6 +59,7 @@ const ProductTab = ({ categories, inSeasonProducts, addItemToCart }) => {
                               }}
                             ></div>
                           </Card.Text>
+                          <div className="gap"></div>
                           <Row className="my-3">
                             <Col>
                               <Button
