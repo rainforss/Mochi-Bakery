@@ -12,7 +12,7 @@ const Header = () => {
           "d-flex justify-content-around header position-absolute w-100 " +
           (router.pathname === "/"
             ? "nav-main"
-            : router.pathname === "/cart"
+            : router.pathname === "/cart" || router.pathname === "/checkout"
             ? "nav-cart"
             : "nav-secondary")
         }

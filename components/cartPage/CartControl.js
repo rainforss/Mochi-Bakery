@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import DumpCart from "./DumpCart";
 
-const CartControl = ({ emptyCart, checkOut, shown }) => {
+const CartControl = ({ emptyCart, shown }) => {
   return (
     <>
       <Container className="cart-control">
@@ -14,9 +14,11 @@ const CartControl = ({ emptyCart, checkOut, shown }) => {
             </Link>
           </Col>
           <Col className="text-right">
-            <Button variant="primary" className={shown ? "" : "d-none"}>
-              Check out
-            </Button>
+            <Link href="/checkout">
+              <Button variant="primary" className={shown ? "" : "d-none"}>
+                Check out
+              </Button>
+            </Link>
           </Col>
         </Row>
       </Container>

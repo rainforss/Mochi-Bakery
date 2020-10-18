@@ -25,14 +25,11 @@ const products = ({ allProducts, categories }) => {
   );
   const currentCartId = Cookies.get("commercejs_cart_id");
   const { cart, update } = useCart(currentCartId);
-  console.log(cart);
   const addItemToCart = async (e) => {
     const updatedInfo = await commerce.cart.add(e.target.name, 1);
     update(
       {
-        ...cart,
-        total_items: updatedInfo.cart.total_items,
-        line_items: updatedInfo.cart.line_items,
+        ...updatedInfo.cart,
       },
       false
     );
