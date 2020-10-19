@@ -7,7 +7,7 @@ import Layout from "../components/Layout";
 
 import commerce from "../lib/commerce";
 import serverCookies from "cookies";
-import useSWR from "swr";
+import { useFormik } from "formik";
 
 export const getServerSideProps = async ({ req, res }) => {
   const cookies = new serverCookies(req, res);
@@ -17,33 +17,87 @@ export const getServerSideProps = async ({ req, res }) => {
     cookies.get("commercejs_cart_id")
   );
 
-  //Get the cart live object instead of the static one for checkout information
+  //Get the cart live object while setting tax zone instead of the static one for checkout information
   const cart = await commerce.checkout.getLive(checkoutToken.id);
-  return { props: { checkoutToken, cart } };
+  return { props: { checkoutToken, cart: cart } };
 };
 
 const checkout = ({ checkoutToken, cart }) => {
-  const { data: buyerLocation } = useSWR(
-    `https://api.chec.io/v1/checkouts/${checkoutToken.id}/helper/location_from_ip`
-  );
-  useSWR(
-    () =>
-      `https://api.chec.io/v1/checkouts/${checkoutToken.id}/helper/set_tax_zone?ip_address=${buyerLocation.ip_address}`
-  );
-  console.log(buyerLocation);
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      country: "",
+      province: "",
+      city: "",
+      postalCode: "",
+      address1: "",
+      address2: "",
+      phoneNumber: "",
+      emailAddress: "",
+      shippingMethod: "",
+      orderNotes: "",
+      cardNumber: "",
+      cvc: "",
+      expYear: "",
+      expMonth: "",
+      billingPostalCode: "",
+      gateway: "test_gateway",
+    },
+    onSubmit: async (values) => {
+      const returnedData = await commerce.checkout.capture(checkoutToken.id, {
+        line_items: { ...cart.line_items },
+        customer: {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.emailAddress,
+        },
+        shipping: {
+          name: `${values.firstName} ${values.lastName}`,
+          country: values.country,
+          street: `${values.address1} ${values.address2}`,
+          town_city: values.city,
+          county_state: values.province,
+          postal_zip_code: values.postalCode,
+        },
+        fulfillment: {
+          shipping_method: values.shippingMethod,
+        },
+        payment: {
+          gateway: values.gateway,
+          card: {
+            number: values.cardNumber,
+            expiry_month: values.expMonth,
+            expiry_year: values.expYear,
+            cvc: values.cvc,
+            postal_zip_code: values.billingPostalCode,
+          },
+        },
+      });
+      console.log(returnedData);
+    },
+  });
   return (
     <Layout>
-      <Container className="checkout-body" fluid>
+      <Container className="checkout-body">
         <Row>
-          <Col sm={5} className="offset-1">
-            <ShippingInfo checkoutToken={checkoutToken} />
-            <BillingInfo />
-            <Button className="my-5" variant="success" block>
+          <Col sm={7}>
+            <ShippingInfo checkoutToken={checkoutToken} formik={formik} />
+            <BillingInfo formik={formik} />
+          </Col>
+          <Col sm={5}>
+            <OrderInfo cart={cart} />
+          </Col>
+          <Col sm={7}>
+            <Button
+              className="my-5 mx-auto"
+              variant="success"
+              block
+              onClick={formik.handleSubmit}
+            >
               Make Payment
             </Button>
-          </Col>
-          <Col sm={4} className="offset-1">
-            <OrderInfo buyer cart={cart} />
           </Col>
         </Row>
       </Container>

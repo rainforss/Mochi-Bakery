@@ -2,7 +2,6 @@ import React from "react";
 import { Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 
 const OrderInfo = ({ cart }) => {
-  console.log(cart);
   return (
     <Container fluid className="my-5 px-4 order-info-container">
       <h3 className="py-4">Purchasing items</h3>
@@ -36,19 +35,30 @@ const OrderInfo = ({ cart }) => {
             ))
           : null}
       </ListGroup>
-      <div>
-        <div>
-          <span>Subtotal</span>
+      <div className="mt-3 pb-4">
+        <div className="d-flex justify-content-between">
+          <span>Subtotal:</span>
           <span>{cart ? cart.subtotal.formatted_with_code : ""}</span>
         </div>
-        <div>
-          <span>Tax</span>
-          <span>{cart ? cart.tax.amount.formatted_with_code : ""}</span>
+        <div className="d-flex justify-content-between">
+          <span>Tax:</span>
+          <span>
+            {cart ? `${(cart.subtotal.raw * 0.05).toFixed(2)} CAD` : ""}
+          </span>
         </div>
-        <div>
-          <span></span>
-          <span></span>
+        <div className="d-flex justify-content-between">
+          <span>Shipping:</span>
+          <span>0 CAD</span>
         </div>
+      </div>
+      <div
+        className="text-right pt-3 pb-5 font-weight-bolder"
+        style={{ borderTop: "2px lightgrey solid", fontSize: "1.3rem" }}
+      >
+        <span>
+          Total amount:{" "}
+          {cart ? `${(cart.subtotal.raw * 1.05).toFixed(2)} CAD` : ""}
+        </span>
       </div>
     </Container>
   );

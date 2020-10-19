@@ -1,15 +1,16 @@
 import React from "react";
 import { Accordion, Card, Col, Container, Form, Button } from "react-bootstrap";
 
-const BillingInfo = () => {
+const BillingInfo = ({ formik }) => {
+  console.log(formik.values);
   return (
-    <Container className="py-5 billing-container" fluid>
-      <h2>Payment detail</h2>
+    <Container className="py-4 billing-container" fluid>
+      <h2 style={{ fontSize: "1.7rem" }}>Payment detail</h2>
       <Accordion className="py-4" defaultActiveKey="0">
         <Card>
           <Card.Header>
             <Accordion.Toggle as={Button} variant="link" eventKey="0">
-              First payment method
+              Credit / debit card
             </Accordion.Toggle>
           </Card.Header>
           <Accordion.Collapse eventKey="0">
@@ -22,15 +23,21 @@ const BillingInfo = () => {
                       type="text"
                       pattern="[0-9.]+"
                       maxLength="16"
-                      defaultValue="4242 4242 4242 4242"
+                      name="cardNumber"
+                      onChange={formik.handleChange}
+                      value={formik.values.cardNumber}
+                      placeholder="4242 4242 4242 4242"
                     />
                   </Form.Group>
-                  <Form.Group as={Col} xs="4" controlId="cvv">
+                  <Form.Group as={Col} xs="4" controlId="cvc">
                     <Form.Label>CVC (CVV)</Form.Label>
                     <Form.Control
                       type="number"
                       maxLength="3"
-                      defaultValue="123"
+                      name="cvc"
+                      onChange={formik.handleChange}
+                      value={formik.values.cvc}
+                      placeholder="123"
                     />
                   </Form.Group>
                 </Form.Row>
@@ -40,8 +47,10 @@ const BillingInfo = () => {
                     <Form.Control
                       type="number"
                       maxLength="2"
+                      name="expMonth"
+                      onChange={formik.handleChange}
+                      value={formik.values.expMonth}
                       placeholder="MM"
-                      defaultValue="11"
                     />
                   </Form.Group>
                   <Form.Group as={Col} xs="4" controlId="expYear">
@@ -49,8 +58,20 @@ const BillingInfo = () => {
                     <Form.Control
                       type="number"
                       maxLength="4"
+                      name="expYear"
+                      onChange={formik.handleChange}
+                      value={formik.values.expYear}
                       placeholder="YYYY"
-                      defaultValue="2023"
+                    />
+                  </Form.Group>
+                  <Form.Group as={Col} xs="4" controlId="billingPostalCode">
+                    <Form.Label>Postal code</Form.Label>
+                    <Form.Control
+                      type="text"
+                      maxLength="6"
+                      name="billingPostalCode"
+                      onChange={formik.handleChange}
+                      value={formik.values.billingPostalCode}
                     />
                   </Form.Group>
                 </Form.Row>
