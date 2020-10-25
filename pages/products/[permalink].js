@@ -40,9 +40,7 @@ const Product = ({ product }) => {
     const updatedInfo = await commerce.cart.add(e.target.name, 1);
     update(
       {
-        ...cart,
-        total_items: updatedInfo.cart.total_items,
-        line_items: updatedInfo.cart.line_items,
+        ...updatedInfo.cart,
       },
       false
     );
