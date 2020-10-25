@@ -1,6 +1,5 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { CollectionFill } from "react-bootstrap-icons";
 
 const SocialMedias = () => {
   return (

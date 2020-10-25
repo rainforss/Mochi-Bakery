@@ -50,7 +50,7 @@ const Product = ({ product }) => {
     <>
       <Layout>
         <Head>
-          <title>{`Krystal's Bakery | ${product.name}`}</title>
+          <title>{`Mochi's Bakery | ${product.name}`}</title>
         </Head>
         <Container className="item-display-body">
           <Row>

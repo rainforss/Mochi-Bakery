@@ -2,7 +2,6 @@ import React from "react";
 import { Accordion, Card, Col, Container, Form, Button } from "react-bootstrap";
 
 const BillingInfo = ({ formik }) => {
-  console.log(formik.values);
   return (
     <Container className="py-4 billing-container" fluid>
       <h2 style={{ fontSize: "1.7rem" }}>Payment detail</h2>

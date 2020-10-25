@@ -5,7 +5,6 @@ const PriceSection = ({ cart }) => {
   if (!cart || cart.total_items === 0) {
     return null;
   }
-  console.log(cart);
   return (
     <Container className="border-top-turquoise pt-3 pb-5">
       <Row>

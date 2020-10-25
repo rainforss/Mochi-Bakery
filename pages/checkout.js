@@ -75,7 +75,6 @@ const checkout = ({ checkoutToken, cart }) => {
           },
         },
       });
-      console.log(returnedData);
     },
   });
   return (
