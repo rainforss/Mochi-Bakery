@@ -44,7 +44,7 @@ const products = ({ allProducts, categories }) => {
     <>
       <Layout>
         <Head>
-          <title>Krystal's Bakery | Products</title>
+          <title>Mochi's Bakery | Products</title>
         </Head>
         <WeeklySpecialSection
           weeklySpecials={weeklySpecials}

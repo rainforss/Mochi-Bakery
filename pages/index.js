@@ -9,14 +9,18 @@ import HeroSection from "../components/homepage/HeroSection";
 import SocialMedias from "../components/homepage/SocialMedias";
 import Layout from "../components/Layout";
 import commerce from "../lib/commerce";
+import SuggestedProducts from "../components/individualProductPage/SuggestedProducts";
+import ContactSection from "../components/homepage/ContactSection";
 
 export const getStaticProps = async () => {
   const { data: categories } = await commerce.categories.list();
-
-  return { props: { categories } };
+  const { data: weeklySpecials } = await commerce.products.list({
+    category_slug: "weekly-specials",
+  });
+  return { props: { categories, weeklySpecials } };
 };
 
-export default function Home({ categories }) {
+export default function Home({ categories, weeklySpecials }) {
   const currentCartId = Cookies.get("commercejs_cart_id");
   const { cart, update } = useCart(currentCartId);
 
@@ -24,16 +28,22 @@ export default function Home({ categories }) {
     <>
       <Layout>
         <Head>
-          <title>Krystal's Bakery | Home</title>
+          <title>Mochi's Bakery | Home</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
         <HeroSection />
+        <SuggestedProducts
+          similarProducts={weeklySpecials}
+          showHeading={false}
+          shown={true}
+        />
+        <ContactSection showCaseProducts={weeklySpecials} />
         <Row className="mx-auto site-map">
-          <Col xs={6} md={6}>
+          <Col xs={12} sm={6} className="py-4">
             <CategoryShowcase categories={categories} />
           </Col>
-          <Col xs={6} md={6}>
+          <Col xs={12} sm={6} className="py-4">
             <SocialMedias />
           </Col>
           {/* <Col md={12}>

@@ -7,7 +7,7 @@ const SuggestedProducts = ({ similarProducts, showHeading, shown }) => {
     return null;
   } else {
     return (
-      <Container className="suggested-products">
+      <Container className="suggested-products pt-5">
         {showHeading ? (
           <h3 className="py-5 text-center">
             We also recommend trying these out

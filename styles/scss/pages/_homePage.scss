@@ -66,8 +66,43 @@
   }
 }
 
+.contact-section {
+  margin-top: -4rem;
+}
+
+.showcase-slide {
+  min-height: 300px;
+  background-size: cover;
+  background-position: top;
+}
+.image-swiper {
+  overflow-x: hidden;
+}
+
+.linger-left {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 10%;
+  height: 1.5rem;
+  width: 3.5rem;
+  background-color: rgba(240, 128, 128, 0.753);
+  transform: translate(0, -120%);
+}
+
+.linger-right {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 10%;
+  height: 1.5rem;
+  width: 3.5rem;
+  background-color: rgba(64, 224, 208, 0.658);
+  transform: translate(0, 190%);
+}
+
 .site-map {
-  padding: 5rem 3rem 10rem 3rem;
+  padding: 5rem 3rem 15rem 3rem;
   width: 75%;
 
   @media (max-width: 1200px) {

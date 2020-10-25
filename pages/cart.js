@@ -89,7 +89,7 @@ const cart = ({ initialCart, recommendedProducts }) => {
   return (
     <Layout>
       <Head>
-        <title>Krystal's Bakery | Shopping cart</title>
+        <title>Mochi's Bakery | Shopping cart</title>
       </Head>
 
       <CartItemList

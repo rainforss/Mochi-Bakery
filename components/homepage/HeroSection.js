@@ -27,7 +27,7 @@ const HeroSection = () => {
     "/images/home-4.jpg",
   ];
   return (
-    <div className="hero-wrap">
+    <div className="hero-wrap mb-5">
       <div className="hero-section">
         <ReactIdSwiperCustom {...params}>
           {images.map((image) => (
