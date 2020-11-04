@@ -13,10 +13,15 @@ export const getServerSideProps = async () => {
 
   const { data: allProducts } = await commerce.products.list();
 
-  return { props: { allProducts, categories } };
+  return {
+    props: {
+      allProducts,
+      categories,
+    },
+  };
 };
 
-const products = ({ allProducts, categories }) => {
+const products = ({ allProducts, categories, blogs }) => {
   const weeklySpecials = allProducts.filter(
     (product) => product.categories[0].slug === "weekly-specials"
   );

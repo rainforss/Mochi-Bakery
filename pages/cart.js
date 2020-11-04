@@ -85,7 +85,6 @@ const cart = ({ initialCart, recommendedProducts }) => {
     toast.dark("🦄 All items has been removed from your cart!");
   };
 
-  console.log(cart);
   return (
     <Layout>
       <Head>

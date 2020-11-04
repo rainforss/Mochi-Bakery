@@ -1,9 +1,12 @@
+import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { signIn, signOut, useSession } from "next-auth/client";
 
 const Header = () => {
   const router = useRouter();
+  const [session, loading] = useSession();
 
   return (
     <>
@@ -48,6 +51,31 @@ const Header = () => {
               Products
             </Nav.Link>
           </Link>
+          {!session && (
+            <Nav.Link
+              className="internal-link"
+              href={`/auth/signin`}
+              onClick={(e) => {
+                e.preventDefault();
+                signIn();
+              }}
+            >
+              Sign In
+            </Nav.Link>
+          )}
+          {session && (
+            <>
+              <Nav.Link
+                className="internal-link"
+                href={`/api/auth/signout`}
+                onClick={(e) => {
+                  signOut();
+                }}
+              >
+                Sign out
+              </Nav.Link>
+            </>
+          )}
         </Nav>
       </Navbar>
     </>
