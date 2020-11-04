@@ -11,16 +11,22 @@ import ProductDetail from "../../components/individualProductPage/ProductDetail"
 import CustomerReviews from "../../components/individualProductPage/CustomerReviews";
 import SuggestedProducts from "../../components/individualProductPage/SuggestedProducts";
 import { toast } from "react-toastify";
+import useContentful from "../../hooks/useContentful";
 
 export const getServerSideProps = async (context) => {
   const product = await commerce.products.retrieve(context.params.permalink, {
     type: "permalink",
   });
 
-  return { props: { product } };
+  const reviews = await useContentful().getEntries({
+    content_type: "review",
+    "fields.permalink": context.params.permalink,
+  });
+
+  return { props: { product, reviews } };
 };
 
-const Product = ({ product }) => {
+const Product = ({ product, reviews }) => {
   let similarProducts;
   const { data, error, mutate } = useSWR(
     `https://api.chec.io/v1/products?category_slug=${product.categories[0].slug}`
@@ -62,7 +68,7 @@ const Product = ({ product }) => {
             </Col>
           </Row>
         </Container>
-        <CustomerReviews />
+        <CustomerReviews reviews={reviews} />
         <SuggestedProducts
           similarProducts={similarProducts}
           showHeading={true}

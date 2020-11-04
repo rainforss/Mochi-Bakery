@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signIn, signOut, useSession } from "next-auth/client";
@@ -20,63 +20,74 @@ const Header = () => {
             : "nav-secondary")
         }
         style={{ zIndex: 4 }}
+        expand="sm"
       >
-        <Nav>
-          <Link href="/contact" passHref>
-            <Nav.Link
-              className={
-                router.pathname === "/contact" ? "active-link" : "internal-link"
-              }
-            >
-              Contact
-            </Nav.Link>
-          </Link>
-        </Nav>
-
         <Navbar.Brand className="mx-3">
           <Link href="/">
             <a className="logo">Mochi's Bakery</a>
           </Link>
         </Navbar.Brand>
-
-        <Nav>
-          <Link href="/products" passHref>
-            <Nav.Link
-              className={
-                router.pathname === "/products"
-                  ? "active-link"
-                  : "internal-link"
-              }
-            >
-              Products
-            </Nav.Link>
-          </Link>
-          {!session && (
-            <Nav.Link
-              className="internal-link"
-              href={`/auth/signin`}
-              onClick={(e) => {
-                e.preventDefault();
-                signIn();
-              }}
-            >
-              Sign In
-            </Nav.Link>
-          )}
-          {session && (
-            <>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            <Link href="/products" passHref>
+              <Nav.Link
+                className={
+                  router.pathname === "/products"
+                    ? "active-link"
+                    : "internal-link"
+                }
+              >
+                Products
+              </Nav.Link>
+            </Link>
+            <Link href="/blogs" passHref>
+              <Nav.Link
+                className={
+                  router.pathname === "/blogs" ? "active-link" : "internal-link"
+                }
+              >
+                Blogs
+              </Nav.Link>
+            </Link>
+            <Link href="/contact" passHref>
+              <Nav.Link
+                className={
+                  router.pathname === "/contact"
+                    ? "active-link"
+                    : "internal-link"
+                }
+              >
+                Contact
+              </Nav.Link>
+            </Link>
+            {!session && (
               <Nav.Link
                 className="internal-link"
-                href={`/api/auth/signout`}
+                href={`/auth/signin`}
                 onClick={(e) => {
-                  signOut();
+                  e.preventDefault();
+                  signIn();
                 }}
               >
-                Sign out
+                Sign In
               </Nav.Link>
-            </>
-          )}
-        </Nav>
+            )}
+            {session && (
+              <>
+                <Nav.Link
+                  className="internal-link"
+                  href={`/api/auth/signout`}
+                  onClick={(e) => {
+                    signOut();
+                  }}
+                >
+                  Sign out
+                </Nav.Link>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
     </>
   );
