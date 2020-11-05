@@ -20,6 +20,7 @@ export const getServerSideProps = async (context) => {
 
   const reviews = await useContentful().getEntries({
     content_type: "review",
+    locale: "*",
     "fields.permalink": context.params.permalink,
   });
 
@@ -68,7 +69,11 @@ const Product = ({ product, reviews }) => {
             </Col>
           </Row>
         </Container>
-        <CustomerReviews reviews={reviews} />
+        <CustomerReviews
+          reviews={reviews}
+          productName={product.name}
+          permalink={product.permalink}
+        />
         <SuggestedProducts
           similarProducts={similarProducts}
           showHeading={true}

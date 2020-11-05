@@ -5,7 +5,7 @@ import { Container } from "react-bootstrap";
 import Layout from "../../components/Layout";
 
 export const getServerSideProps = async (context) => {
-  const { items } = await useContentful().getEntries({
+  const { items } = await useContentful(false).getEntries({
     "sys.id": `${context.params.entryId}`,
   });
 
