@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, ListGroup, Modal } from "react-bootstrap";
 import { StarFill, StarHalf } from "react-bootstrap-icons";
+import useContentful from "../../hooks/useContentful";
+import starGenerator from "../../lib/starGenerator";
 
 const ReviewModal = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [reviews, setReviews] = useState([]);
+  const loadReviews = async () => {
+    const entries = await useContentful(false).getEntries({
+      content_type: "review",
+      locale: "*",
+    });
+    setReviews([...entries.items]);
+  };
+  useEffect(() => {
+    loadReviews();
+  }, [show]);
   return (
     <>
       <Button block variant="primary" onClick={handleShow} className="mt-4">
@@ -24,132 +37,23 @@ const ReviewModal = () => {
         </Modal.Header>
         <Modal.Body>
           <ListGroup>
-            <ListGroup.Item>
-              <div className="d-flex align-items-center">
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarHalf className="mx-1" />
-                <span className="mx-1">4.5/5</span>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                blandit tortor vel turpis mollis tincidunt. In a tempor ipsum,
-                vel pharetra augue. Curabitur lacinia, est a condimentum
-                gravida, quam nulla mollis nibh, auctor sodales orci libero eget
-                risus. Nulla egestas elit in hendrerit tincidunt. Ut
-                sollicitudin risus arcu, non imperdiet leo scelerisque ac.
-                Integer porta auctor congue. Cras semper mi mauris, vitae
-                lacinia ante feugiat ut. Quisque libero nulla, viverra vitae
-                viverra sed, sodales eu dui.{" "}
-              </p>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <div className="d-flex align-items-center">
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarHalf className="mx-1" />
-                <span className="mx-1">4.5/5</span>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                blandit tortor vel turpis mollis tincidunt. In a tempor ipsum,
-                vel pharetra augue. Curabitur lacinia, est a condimentum
-                gravida, quam nulla mollis nibh, auctor sodales orci libero eget
-                risus. Nulla egestas elit in hendrerit tincidunt. Ut
-                sollicitudin risus arcu, non imperdiet leo scelerisque ac.
-                Integer porta auctor congue. Cras semper mi mauris, vitae
-                lacinia ante feugiat ut. Quisque libero nulla, viverra vitae
-                viverra sed, sodales eu dui.{" "}
-              </p>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <div className="d-flex align-items-center">
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarHalf className="mx-1" />
-                <span className="mx-1">4.5/5</span>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                blandit tortor vel turpis mollis tincidunt. In a tempor ipsum,
-                vel pharetra augue. Curabitur lacinia, est a condimentum
-                gravida, quam nulla mollis nibh, auctor sodales orci libero eget
-                risus. Nulla egestas elit in hendrerit tincidunt. Ut
-                sollicitudin risus arcu, non imperdiet leo scelerisque ac.
-                Integer porta auctor congue. Cras semper mi mauris, vitae
-                lacinia ante feugiat ut. Quisque libero nulla, viverra vitae
-                viverra sed, sodales eu dui.{" "}
-              </p>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <div className="d-flex align-items-center">
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarHalf className="mx-1" />
-                <span className="mx-1">4.5/5</span>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                blandit tortor vel turpis mollis tincidunt. In a tempor ipsum,
-                vel pharetra augue. Curabitur lacinia, est a condimentum
-                gravida, quam nulla mollis nibh, auctor sodales orci libero eget
-                risus. Nulla egestas elit in hendrerit tincidunt. Ut
-                sollicitudin risus arcu, non imperdiet leo scelerisque ac.
-                Integer porta auctor congue. Cras semper mi mauris, vitae
-                lacinia ante feugiat ut. Quisque libero nulla, viverra vitae
-                viverra sed, sodales eu dui.{" "}
-              </p>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <div className="d-flex align-items-center">
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarHalf className="mx-1" />
-                <span className="mx-1">4.5/5</span>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                blandit tortor vel turpis mollis tincidunt. In a tempor ipsum,
-                vel pharetra augue. Curabitur lacinia, est a condimentum
-                gravida, quam nulla mollis nibh, auctor sodales orci libero eget
-                risus. Nulla egestas elit in hendrerit tincidunt. Ut
-                sollicitudin risus arcu, non imperdiet leo scelerisque ac.
-                Integer porta auctor congue. Cras semper mi mauris, vitae
-                lacinia ante feugiat ut. Quisque libero nulla, viverra vitae
-                viverra sed, sodales eu dui.{" "}
-              </p>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <div className="d-flex align-items-center">
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarFill className="mx-1" />
-                <StarHalf className="mx-1" />
-                <span className="mx-1">4.5/5</span>
-              </div>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                blandit tortor vel turpis mollis tincidunt. In a tempor ipsum,
-                vel pharetra augue. Curabitur lacinia, est a condimentum
-                gravida, quam nulla mollis nibh, auctor sodales orci libero eget
-                risus. Nulla egestas elit in hendrerit tincidunt. Ut
-                sollicitudin risus arcu, non imperdiet leo scelerisque ac.
-                Integer porta auctor congue. Cras semper mi mauris, vitae
-                lacinia ante feugiat ut. Quisque libero nulla, viverra vitae
-                viverra sed, sodales eu dui.{" "}
-              </p>
-            </ListGroup.Item>
+            {reviews.map((review) => (
+              <ListGroup.Item key={review.sys.id}>
+                <div className="d-flex align-items-center">
+                  {starGenerator(review.fields.rating["en-US"])}
+                  <span className="mx-1">
+                    {review.fields.rating["en-US"]}/5
+                  </span>
+                  <span className="mx-1">
+                    By{" "}
+                    {review.fields.customerName["en-US"]
+                      ? review.fields.customerName["en-US"]
+                      : "Anonymous"}
+                  </span>
+                </div>
+                <p>{review.fields.productReview["en-US"]}</p>
+              </ListGroup.Item>
+            ))}
           </ListGroup>
         </Modal.Body>
         <Modal.Footer>

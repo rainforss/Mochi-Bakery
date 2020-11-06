@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-
 import ReviewModal from "./ReviewModal";
 import ReviewSubmitModal from "./ReviewSubmitModal";
 import starGenerator from "../../lib/starGenerator";
 import useContentful from "../../hooks/useContentful";
 import { useSession } from "next-auth/client";
+import { toast } from "react-toastify";
 
 const CustomerReviews = ({ reviews, permalink, productName }) => {
-  const [session, loading] = useSession();
+  const [session] = useSession();
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setRating(0);
+    setComment("");
+    setErrors({});
+    setShow(false);
+  };
 
   const handleShow = () => setShow(true);
 
@@ -20,13 +25,37 @@ const CustomerReviews = ({ reviews, permalink, productName }) => {
 
   const [comment, setComment] = useState("");
 
+  const [errors, setErrors] = useState({});
+
+  const [validated, setValidated] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
   const [reviewList, setReviewList] = useState([...reviews.items]);
 
   const captureStar = (e) => {
     setRating(parseInt(e.currentTarget.getAttribute("name")));
   };
 
-  const onSubmit = async () => {
+  const validate = () => {
+    let errors = {};
+    if (rating == 0) {
+      errors.rating = "Please leave your rating by clicking the stars";
+    }
+    if (!comment) {
+      errors.comment = "Please leave your review comment";
+    }
+    setErrors({ ...errors });
+    return Object.keys(errors).length === 0;
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (validate() === false) {
+      setValidated(true);
+      return;
+    }
+    setLoading(true);
     const entry = await useContentful(true).createEntry("review", {
       fields: {
         permalink: { "en-US": permalink },
@@ -38,11 +67,10 @@ const CustomerReviews = ({ reviews, permalink, productName }) => {
     });
 
     const published = await entry.publish();
-    console.log(reviewList);
-    console.log(published);
-    setReviewList([...reviewList, published]);
-    console.log(reviewList);
-    setShow(false);
+    setLoading(false);
+    setReviewList([published, ...reviewList]);
+    handleClose();
+    toast.success("Your comment has been published successfully!");
   };
 
   return (
@@ -73,7 +101,7 @@ const CustomerReviews = ({ reviews, permalink, productName }) => {
             );
         })}
       </Row>
-      <ReviewModal />
+      <ReviewModal reviews={reviews.items} />
       <ReviewSubmitModal
         productName={productName}
         permalink={permalink}
@@ -88,6 +116,9 @@ const CustomerReviews = ({ reviews, permalink, productName }) => {
         rating={rating}
         comment={comment}
         captureStar={captureStar}
+        errors={errors}
+        validated={validated}
+        loading={loading}
       />
     </Container>
   );

@@ -17,7 +17,6 @@ export const getServerSideProps = async (context) => {
 };
 
 const Blog = ({ blog }) => {
-  console.log(blog);
   return (
     <Layout>
       <Container>

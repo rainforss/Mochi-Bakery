@@ -18,13 +18,14 @@ export const getServerSideProps = async (context) => {
     type: "permalink",
   });
 
-  const reviews = await useContentful().getEntries({
+  const reviews = await useContentful(false).getEntries({
     content_type: "review",
     locale: "*",
+    limit: 4,
     "fields.permalink": context.params.permalink,
   });
 
-  return { props: { product, reviews } };
+  return { props: { product, reviews, key: product.id } };
 };
 
 const Product = ({ product, reviews }) => {
