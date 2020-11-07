@@ -9,14 +9,16 @@ import ShoppingCart from "../../components/common/ShoppingCart";
 import { toast } from "react-toastify";
 
 export const getServerSideProps = async () => {
-  const { data: categories } = await commerce.categories.list();
+  const categories = commerce.categories.list();
 
-  const { data: allProducts } = await commerce.products.list();
+  const allProducts = commerce.products.list();
+
+  const results = await Promise.all([categories, allProducts]);
 
   return {
     props: {
-      allProducts,
-      categories,
+      allProducts: results[1].data,
+      categories: results[0].data,
     },
   };
 };

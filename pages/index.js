@@ -13,11 +13,15 @@ import SuggestedProducts from "../components/individualProductPage/SuggestedProd
 import ContactSection from "../components/homepage/ContactSection";
 
 export const getStaticProps = async () => {
-  const { data: categories } = await commerce.categories.list();
-  const { data: weeklySpecials } = await commerce.products.list({
+  const categories = commerce.categories.list();
+  const weeklySpecials = commerce.products.list({
     category_slug: "weekly-specials",
   });
-  return { props: { categories, weeklySpecials } };
+
+  const results = await Promise.all([categories, weeklySpecials]);
+  return {
+    props: { categories: results[0].data, weeklySpecials: results[1].data },
+  };
 };
 
 export default function Home({ categories, weeklySpecials }) {

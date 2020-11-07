@@ -14,18 +14,22 @@ import { toast } from "react-toastify";
 import useContentful from "../../hooks/useContentful";
 
 export const getServerSideProps = async (context) => {
-  const product = await commerce.products.retrieve(context.params.permalink, {
+  const product = commerce.products.retrieve(context.params.permalink, {
     type: "permalink",
   });
 
-  const reviews = await useContentful(false).getEntries({
+  const reviews = useContentful(false).getEntries({
     content_type: "review",
     locale: "*",
     limit: 4,
     "fields.permalink": context.params.permalink,
   });
 
-  return { props: { product, reviews, key: product.id } };
+  const results = await Promise.all([product, reviews]);
+
+  return {
+    props: { product: results[0], reviews: results[1], key: results[0].id },
+  };
 };
 
 const Product = ({ product, reviews }) => {
